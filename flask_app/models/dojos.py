@@ -33,3 +33,10 @@ class Dojo:
         results = connectToMySQL("dojos_ninjas_schema").query_db(query, data)
         # return prints if successful
         return results
+
+    @classmethod
+    def get_dojo_by_id(cls, id):
+        query = f"SELECT * FROM dojos WHERE dojos.id = {id};"
+        results = connectToMySQL("dojos_ninjas_schema").query_db(query)
+        dojo = cls(results[0])
+        return dojo

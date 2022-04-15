@@ -28,7 +28,8 @@ def create_dojo():
 @app.route("/dojos/<int:id>")
 def ninjas_dojos(id):
     ninjas = Ninja.get_all_rows_from_dojo(id);
-    return render_template("dojo_ninjas.html", ninjas=ninjas)
+    dojo = Dojo.get_dojo_by_id(id)
+    return render_template("dojo_ninjas.html", ninjas=ninjas, dojo=dojo)
 
 # New Ninja page that allows the user to create a new ninja
 @app.route("/ninjas")
@@ -47,4 +48,4 @@ def new_ninja():
         "dojo_id" : request.form["dojo_id"]
     }
     Ninja.insert_row(data)
-    return redirect("/dojos")
+    return redirect("/dojos/" + data["dojo_id"])
